@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Monitor de Red</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    margin:40px;
+}
+
+table{
+    border-collapse: collapse;
+    width:100%;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+th{
+    background:#f5f5f5;
+}
+
+.activo{
+    color:green;
+    font-weight:bold;
+}
+
+.inactivo{
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Monitor de Red</h1>
+
+<p>
+Equipos monitorizados: {{ resultados|length }}
+</p>
+
+<table>
+
+<tr>
+    <th>Nombre</th>
+    <th>HOST</th>
+    <th>Descripción</th>
+    <th>Estado</th>
+</tr>
+
+{% for equipo in resultados %}
+<tr>
+
+    <td>{{ equipo.nombre }}</td>
+
+    <td>{{ equipo.host }}</td>
+
+    <td>{{ equipo.descripcion }}</td>
+
+    <td>
+
+        {% if equipo.activo %}
+            <span class="activo">🟢 ACTIVO</span>
+        {% else %}
+            <span class="inactivo">🔴 INACTIVO</span>
+        {% endif %}
+
+    </td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
