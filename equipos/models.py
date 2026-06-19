@@ -18,7 +18,7 @@ class Equipo(models.Model):
 
     puertos = models.CharField(
         max_length=200,
-        default="22,80,443",
+        default="22,53,80,443,44444",
         help_text="Lista de puertos separados por comas"
     )
 

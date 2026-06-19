@@ -1,54 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Monitor de Red</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f5f7fa;
+        }
+
+        .estado-activo {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .estado-inactivo {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .card-monitor {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<h1>Monitor de Equipos</h1>
+<div class="container mt-5">
 
-<table border="1">
+    <div class="card card-monitor">
 
-<tr>
-    <th>Nombre</th>
-    <th>Host</th>
-    <th>Descripción</th>
-    <th>Estado</th>
-    <th>Puertos Abiertos</th>
-</tr>
+        <div class="card-header bg-primary text-white">
 
-{% for equipo in resultados %}
+            <h2 class="mb-0">
+                Monitor de Equipos
+            </h2>
 
-<tr>
+        </div>
 
-    <td>{{ equipo.nombre }}</td>
+        <div class="card-body">
 
-    <td>{{ equipo.host }}</td>
+            <table class="table table-hover align-middle">
 
-    <td>{{ equipo.descripcion }}</td>
+                <thead class="table-light">
 
-    <td>
-        {% if equipo.activo %}
-            🟢 Activo
-        {% else %}
-            🔴 Inactivo
-        {% endif %}
-    </td>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Host</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Puertos abiertos</th>
+                    </tr>
 
-    <td>
-        {% for puerto in equipo.puertos %}
-            {{ puerto }}
-            {% if not forloop.last %}, {% endif %}
-        {% empty %}
-            Ninguno
-        {% endfor %}
-    </td>
+                </thead>
 
-</tr>
+                <tbody>
 
-{% endfor %}
+                {% for equipo in resultados %}
 
-</table>
+                    <tr>
+
+                        <td>
+                            <strong>{{ equipo.nombre }}</strong>
+                        </td>
+
+                        <td>
+                            <code>{{ equipo.host }}</code>
+                        </td>
+
+                        <td>
+                            {{ equipo.descripcion }}
+                        </td>
+
+                        <td>
+
+                            {% if equipo.activo %}
+
+                                <span class="estado-activo">
+                                    🟢 Activo
+                                </span>
+
+                            {% else %}
+
+                                <span class="estado-inactivo">
+                                    🔴 Inactivo
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% for puerto in equipo.puertos %}
+
+                                <span class="badge bg-success">
+                                    {{ puerto }}
+                                </span>
+
+                            {% empty %}
+
+                                <span class="badge bg-secondary">
+                                    Ninguno
+                                </span>
+
+                            {% endfor %}
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
