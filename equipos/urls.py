@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import monitor
+from .views import estado_equipos
 
 urlpatterns = [
-    path("", monitor, name="monitor"),
+    path("", estado_equipos, name="monitor"),
 ]

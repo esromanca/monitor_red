@@ -1,10 +1,26 @@
 from django.db import models
 
-# Create your models here.
+
 class Equipo(models.Model):
-    nombre = models.CharField(max_length=100)
-    host = models.CharField(max_length=255, unique=True)
-    descripcion = models.CharField(max_length=200, blank=True)
+
+    nombre = models.CharField(
+        max_length=100
+    )
+
+    host = models.CharField(
+        max_length=255,
+        help_text="Dirección IP o nombre DNS"
+    )
+
+    descripcion = models.TextField(
+        blank=True
+    )
+
+    puertos = models.CharField(
+        max_length=200,
+        default="22,80,443",
+        help_text="Lista de puertos separados por comas"
+    )
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} ({self.host})"
